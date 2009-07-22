@@ -1,0 +1,13 @@
+#!/bin/bash
+# update DNS on autopilot.sfbay
+case $reason in
+	BOUND|RENEW|REBIND|REBOOT)
+		echo updating DNS to $new_ip_address >> /tmp/dnsupdate.log
+		tee /tmp/nsupdate.txt << EOF | nsupdate 2>&1 | tee -a /tmp/dnsupdate.log
+server autopilot.sfbay.sun.com
+update delete $(hostname).hudson-slaves.sfbay.sun.com A
+update add    $(hostname).hudson-slaves.sfbay.sun.com 600 A $new_ip_address
+send
+EOF
+		;;
+esac
