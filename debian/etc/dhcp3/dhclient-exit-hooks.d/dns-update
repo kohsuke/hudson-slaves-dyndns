@@ -7,6 +7,9 @@ case $reason in
 server autopilot.sfbay.sun.com
 update delete $(hostname).hudson-slaves.sfbay.sun.com A
 update add    $(hostname).hudson-slaves.sfbay.sun.com 600 A $new_ip_address
+update delete $(hostname).hudson-slaves.sfbay.sun.com SSHFP
+update add    $(ssh-keygen -r $(hostname).hudson-slaves.sfbay.sun.com -f /etc/ssh/ssh_host_rsa_key.pub | sed -e s/IN/600/)
+update add    $(ssh-keygen -r $(hostname).hudson-slaves.sfbay.sun.com -f /etc/ssh/ssh_host_dsa_key.pub | sed -e s/IN/600/)
 send
 EOF
 		;;

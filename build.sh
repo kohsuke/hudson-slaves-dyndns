@@ -4,8 +4,8 @@
 name=hudson-slaves-dyndns
 version=1.0
 
-mkdir DEBIAN
-cat > DEBIAN/control << EOF
+mkdir debian/DEBIAN
+cat > debian/DEBIAN/control << EOF
 Package: $name
 Version: $version
 Section: base
